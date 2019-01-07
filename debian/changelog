@@ -1,0 +1,55 @@
+pyhamcrest (1.8.0-1.1) unstable; urgency=medium
+
+  [ David Kalnischkies ]
+  * No-change non-maintainer upload to have python3-hamcrest rebuild without
+    the use of deprecated collections ABI usage causing FTBFS in at least
+    src:vim-youcompleteme (Closes: #917660)
+
+  [ Ondřej Nový ]
+  * Fixed VCS URL (https)
+  * d/control: Set Vcs-* to salsa.debian.org
+  * Convert git repository from git-dpm to gbp layout
+
+  [ Piotr Ożarowski ]
+  * Add dh-python to Build-Depends
+
+ -- David Kalnischkies <donkult@debian.org>  Mon, 07 Jan 2019 18:49:27 +0100
+
+pyhamcrest (1.8.0-1) unstable; urgency=low
+
+  * New release
+  * debian/watch: uscan on
+    "https://pypi.python.org/packages/source/P/PyHamcrest/" due to
+    "https://code.google.com/p/hamcrest/downloads/list" seems to be outdated
+
+ -- David Villa Alises <David.Villa@gmail.com>  Thu, 09 Jan 2014 19:04:41 +0100
+
+pyhamcrest (1.6-4) UNRELEASED; urgency=low
+
+  * Use canonical URIs for Vcs-* fields.
+
+ -- Jakub Wilk <jwilk@debian.org>  Sun, 05 May 2013 16:01:46 +0200
+
+pyhamcrest (1.6-3) unstable; urgency=low
+
+  * debian/control: new binary package: python3-hamcrest
+  * debian/control: new build-depends: python3-all, python3-setuptools
+  * debian/rules: removing egg in override_dh_auto_clean (Closes: #671190)
+  * debian/rules: overriding to install python3 files
+  * change maintainer email address to David.Villa@gmail.com
+  * thanks to Piotr Ożarowski <piotr@debian.org>
+
+ -- David Villa Alises <David.Villa@gmail.com>  Wed, 28 Nov 2012 12:06:30 +0100
+
+pyhamcrest (1.6-2) UNRELEASED; urgency=low
+
+  * debian/watch changed to code.google.com URL
+
+ -- David Villa Alises <David.Villa@uclm.es>  Mon, 02 Apr 2012 01:13:03 +0200
+
+pyhamcrest (1.6-1) unstable; urgency=low
+
+  * Initial release (Closes: #642959).
+  * Source package files initially created by stdeb 0.6.0+git
+
+ -- David Villa Alises <David.Villa@uclm.es>  Tue, 13 Dec 2011 16:41:20 +0100

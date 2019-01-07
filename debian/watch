@@ -1,0 +1,7 @@
+version=3
+https://pypi.python.org/packages/source/P/PyHamcrest/PyHamcrest-([\d.]+)\.tar\.gz
+
+#http://code.google.com/p/hamcrest/downloads/list?can=1 \
+#.*/PyHamcrest-(\d[\d\.]*)\.(?:zip|tgz|tbz2|txz|tar\.gz|tar\.bz2|tar\.xz)
+
+#http://googlecode.debian.net/p/hamcrest/PyHamcrest-([\d.]+)\.tar\.gz

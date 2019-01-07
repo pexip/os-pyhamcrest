@@ -1,0 +1,48 @@
+Source: pyhamcrest
+Section: python
+Priority: optional
+Maintainer: David Villa Alises <David.Villa@gmail.com>
+Uploaders: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
+Build-Depends:
+ debhelper (>= 7.0.50),
+ dh-python,
+ python-all (>= 2.6.6-3),
+ python-setuptools (>= 0.6b3),
+ python3-all,
+ python3-setuptools
+Standards-Version: 3.9.5
+Homepage: http://code.google.com/p/hamcrest
+Vcs-Git: https://salsa.debian.org/python-team/modules/pyhamcrest.git
+Vcs-Browser: https://salsa.debian.org/python-team/modules/pyhamcrest
+
+Package: python-hamcrest
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}
+Description: Hamcrest framework for matcher objects (Python 2)
+ PyHamcrest is a framework for writing matcher objects, allowing you to
+ declaratively define "match" rules. There are a number of situations where
+ matchers are invaluable, such as UI validation, or data filtering, but it is in
+ the area of writing flexible tests that matchers are most commonly used. This
+ tutorial shows you how to use PyHamcrest for unit testing.
+ .
+ When writing tests it is sometimes difficult to get the balance right between
+ overspecifying the test (and making it brittle to changes), and not specifying
+ enough (making the test less valuable since it continues to pass even when the
+ thing being tested is broken). Having a tool that allows you to pick out
+ precisely the aspect under test and describe the values it should have, to a
+
+Package: python3-hamcrest
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}
+Description: Hamcrest framework for matcher objects (Python 3)
+ PyHamcrest is a framework for writing matcher objects, allowing you to
+ declaratively define "match" rules. There are a number of situations where
+ matchers are invaluable, such as UI validation, or data filtering, but it is in
+ the area of writing flexible tests that matchers are most commonly used. This
+ tutorial shows you how to use PyHamcrest for unit testing.
+ .
+ When writing tests it is sometimes difficult to get the balance right between
+ overspecifying the test (and making it brittle to changes), and not specifying
+ enough (making the test less valuable since it continues to pass even when the
+ thing being tested is broken). Having a tool that allows you to pick out
+ precisely the aspect under test and describe the values it should have, to a
