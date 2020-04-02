@@ -1,11 +1,12 @@
+from __future__ import absolute_import
 __author__ = "Jon Reid"
 __copyright__ = "Copyright 2011 hamcrest.org"
 __license__ = "BSD, see License.txt"
 
 from hamcrest.core.base_matcher import BaseMatcher, Matcher
 from hamcrest.core.helpers.wrap_matcher import wrap_matcher, is_matchable_type
-from isequal import equal_to
-from isinstanceof import instance_of
+from .isequal import equal_to
+from .isinstanceof import instance_of
 
 
 class IsNot(BaseMatcher):
@@ -44,3 +45,13 @@ def is_not(match):
 
     """
     return IsNot(wrap_value_or_type(match))
+
+def not_(match):
+    """Alias of :py:func:`is_not` for better readability of negations.
+
+    Examples::
+
+        assert_that(alist, not_(has_item(item)))
+
+    """
+    return is_not(match)

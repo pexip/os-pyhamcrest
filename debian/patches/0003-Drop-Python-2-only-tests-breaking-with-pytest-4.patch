@@ -1,0 +1,57 @@
+From: Balint Reczey <balint.reczey@canonical.com>
+Date: Tue, 5 Nov 2019 17:09:49 +0100
+Subject: Drop Python 2-only tests breaking with pytest 4
+
+---
+ tests/hamcrest_unit_test/core/is_test.py           | 1 -
+ tests/hamcrest_unit_test/core/isinstanceof_test.py | 3 ---
+ tests/hamcrest_unit_test/matcher_test.py           | 6 ------
+ 3 files changed, 10 deletions(-)
+
+diff --git a/tests/hamcrest_unit_test/core/is_test.py b/tests/hamcrest_unit_test/core/is_test.py
+index e0bd23d..6c222b7 100644
+--- a/tests/hamcrest_unit_test/core/is_test.py
++++ b/tests/hamcrest_unit_test/core/is_test.py
+@@ -65,7 +65,6 @@ def test_description_uses_equal_to(arg, identity, desc):
+ @pytest.mark.parametrize('arg, identity', (
+     ('A', str),
+     (1, int),
+-    only_py2((OldClass(), OldClass)),
+ ))
+ def test_provides_instanceof_shortcut(arg, identity):
+     assert_matches(is_(identity), arg, "should match")
+diff --git a/tests/hamcrest_unit_test/core/isinstanceof_test.py b/tests/hamcrest_unit_test/core/isinstanceof_test.py
+index 9f4608b..a963d4f 100644
+--- a/tests/hamcrest_unit_test/core/isinstanceof_test.py
++++ b/tests/hamcrest_unit_test/core/isinstanceof_test.py
+@@ -26,7 +26,6 @@ class Child(Parent):
+     ('foo', instance_of((str, int))),
+     (1, instance_of((int, str))),
+     ('foo', instance_of((int, str))),
+-    only_py2((Parent(), instance_of(Parent))),
+ ))
+ def test_matching_evaluation(arg, matcher):
+     assert_matches(matcher, arg, 'same class')
+@@ -35,8 +34,6 @@ def test_matching_evaluation(arg, matcher):
+ @pytest.mark.parametrize('arg, matcher', (
+     ('hi', instance_of(int)),
+     (None, instance_of(int)),
+-    only_py2(('not a parent', instance_of(Parent))),
+-    only_py2((None, instance_of(Parent))),
+ ))
+ def test_mismatching_evaluation(arg, matcher):
+     assert_does_not_match(matcher, arg, 'mismatched')
+diff --git a/tests/hamcrest_unit_test/matcher_test.py b/tests/hamcrest_unit_test/matcher_test.py
+index ec40158..5bb14bf 100644
+--- a/tests/hamcrest_unit_test/matcher_test.py
++++ b/tests/hamcrest_unit_test/matcher_test.py
+@@ -77,9 +77,3 @@ def assert_describe_mismatch(expected, matcher, arg):
+     description = StringDescription()
+     matcher.describe_mismatch(arg, description)
+     assert expected == str(description)
+-
+-
+-only_py3 = pytest.mark.skipif(sys.version_info < (3, ),
+-                              reason="Only relevant in Python 3")
+-only_py2 = pytest.mark.skipif(sys.version_info >= (3, ),
+-                              reason="Only relevant in Python 2")
