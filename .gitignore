@@ -1,0 +1,6 @@
+.DS_Store
+*.pyc
+PyHamcrest.egg-info/
+build/
+dist/
+.tox

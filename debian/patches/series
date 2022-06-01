@@ -1,0 +1,3 @@
+0001-Silence-warnings-from-tests-due-to-use-of-old-pytest.patch
+0002-Mark-issue56-in-a-way-that-works-wity-pytest-4.patch
+0003-Drop-Python-2-only-tests-breaking-with-pytest-4.patch

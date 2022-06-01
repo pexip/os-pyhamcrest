@@ -1,3 +1,70 @@
+pyhamcrest (1.9.0-3) unstable; urgency=medium
+
+  * Drop python2 support; Closes: #937456, #952131
+
+ -- Sandro Tosi <morph@debian.org>  Wed, 01 Apr 2020 23:29:39 -0400
+
+pyhamcrest (1.9.0-2) unstable; urgency=medium
+
+  * Add basic Salsa CI configuration
+  * Fix tests with pytest (>= 4)
+
+ -- Balint Reczey <rbalint@ubuntu.com>  Tue, 05 Nov 2019 17:39:50 +0100
+
+pyhamcrest (1.9.0-1) unstable; urgency=medium
+
+  * Team upload.
+  * debian/watch: Switch to GitHub's tarball download location.
+    The tarball there does not have generated docs but has tests, both making
+    packaging more pleasant.
+  * New upstream version 1.9.0 (Closes: #943963)
+  * New build-dependencies:
+    - python-six
+    - python3-six
+    - python-pytest-cov
+    - python3-pytest-cov
+    - python-hypothesis
+    - python3-hypothesis
+    - python-mock
+    - python3-mock
+
+ -- Balint Reczey <rbalint@ubuntu.com>  Tue, 05 Nov 2019 13:15:12 +0100
+
+pyhamcrest (1.8.0-4) unstable; urgency=medium
+
+  * Team upload.
+  * Fix package long description (Closes: #943689).
+  * d/copyright:
+    - Rewrite from cratch in machine-readable and adapt
+      to new upstream version (Closes: #943688).
+    - Add myself for debian part.
+  * Bump standards version to 4.4.1.
+
+ -- Ondřej Nový <onovy@debian.org>  Mon, 28 Oct 2019 09:20:33 +0100
+
+pyhamcrest (1.8.0-3) unstable; urgency=medium
+
+  * Team upload.
+  * Reintroduce Python 2 support - required by twisted.
+
+ -- Ondřej Nový <onovy@debian.org>  Sun, 27 Oct 2019 22:44:12 +0100
+
+pyhamcrest (1.8.0-2) unstable; urgency=medium
+
+  * Team upload.
+  [ Ondřej Nový ]
+  * Use pybuild to build package.
+  * Enable autopkgtest-pkg-python testsuite.
+  * Bump debhelper compat level to 12 and use debhelper-compat.
+  * Drop Python 2 support (Closes: #937456).
+  * Fix long description (Closes: #696497).
+  * d/control: Fix Homepage.
+
+  [ Piotr Ożarowski ]
+  * Add dh-python to Build-Depends
+
+ -- Ondřej Nový <onovy@debian.org>  Tue, 24 Sep 2019 10:04:23 +0200
+
 pyhamcrest (1.8.0-1.1pexip1) pexip; urgency=medium
 
   * Prepare Pexip packaging

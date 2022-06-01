@@ -1,5 +1,6 @@
-from matcher import Matcher
-from string_description import StringDescription
+from __future__ import absolute_import
+from hamcrest.core.matcher import Matcher
+from hamcrest.core.string_description import StringDescription
 
 __author__ = "Jon Reid"
 __copyright__ = "Copyright 2011 hamcrest.org"
@@ -53,7 +54,7 @@ def _assert_match(actual, matcher, reason):
                    .append_text('\n     but: ')
         matcher.describe_mismatch(actual, description)
         description.append_text('\n')
-        raise AssertionError(str(description))
+        raise AssertionError(description)
 
 
 def _assert_bool(assertion, reason=None):
