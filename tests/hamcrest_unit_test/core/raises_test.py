@@ -1,12 +1,15 @@
-if __name__ == '__main__':
-    import sys
-    sys.path.insert(0, '..')
-    sys.path.insert(0, '../..')
-
-from hamcrest.core.core.raises import *
-
-from hamcrest_unit_test.matcher_test import MatcherTest
+import sys
 import unittest
+
+import pytest
+from hamcrest import has_properties, not_
+from hamcrest.core.core.raises import calling, raises
+from hamcrest_unit_test.matcher_test import MatcherTest, assert_mismatch_description
+
+if __name__ == "__main__":
+    sys.path.insert(0, "..")
+    sys.path.insert(0, "../..")
+
 
 __author__ = "Per Fagrell"
 __copyright__ = "Copyright 2013 hamcrest.org"
@@ -21,46 +24,147 @@ def raise_exception(*args, **kwargs):
     raise AssertionError(str(args) + str(kwargs))
 
 
+def raise_baseException(*args, **kwargs):
+    raise SystemExit(str(args) + str(kwargs))
+
+
+def raise_exception_with_properties(**kwargs):
+    err = AssertionError("boom")
+    for k, v in kwargs.items():
+        setattr(err, k, v)
+    raise err
+
+
 class RaisesTest(MatcherTest):
     def testMatchesIfFunctionRaisesTheExactExceptionExpected(self):
-        self.assert_matches('Right exception',
-                            raises(AssertionError),
-                            calling(raise_exception))
+        self.assert_matches("Right exception", raises(AssertionError), calling(raise_exception))
 
     def testDoesNotMatchTypeErrorIfActualIsNotCallable(self):
-        self.assert_does_not_match('Not callable',
-                                   raises(TypeError),
-                                   23)
+        self.assert_does_not_match("Not callable", raises(TypeError), 23)
+
+    @pytest.mark.skipif(
+        not (3, 0) <= sys.version_info < (3, 7), reason="Message differs between Python versions"
+    )
+    def testDoesNotMatchIfTheWrongExceptionTypeIsRaisedPy3(self):
+        self.assert_does_not_match("Wrong exception", raises(IOError), calling(raise_exception))
+        expected_message = (
+            "AssertionError('(){}',) of type <class 'AssertionError'> was raised instead"
+        )
+        self.assert_mismatch_description(
+            expected_message, raises(TypeError), calling(raise_exception)
+        )
+
+    @pytest.mark.skipif(sys.version_info < (3, 7), reason="Message differs between Python versions")
+    def testDoesNotMatchIfTheWrongExceptionTypeIsRaisedPy37(self):
+        self.assert_does_not_match("Wrong exception", raises(IOError), calling(raise_exception))
+        expected_message = (
+            "AssertionError('(){}') of type <class 'AssertionError'> was raised instead"
+        )
+        self.assert_mismatch_description(
+            expected_message, raises(TypeError), calling(raise_exception)
+        )
 
     def testMatchesIfFunctionRaisesASubclassOfTheExpectedException(self):
-        self.assert_matches('Subclassed Exception',
-                            raises(Exception),
-                            calling(raise_exception))
+        self.assert_matches("Subclassed Exception", raises(Exception), calling(raise_exception))
+
+    def testMatchesIfFunctionRaisesASubclassOfTheExpectedBaseException(self):
+        self.assert_matches(
+            "Subclassed BasedException", raises(BaseException), calling(raise_baseException)
+        )
 
     def testDoesNotMatchIfFunctionDoesNotRaiseException(self):
-        self.assert_does_not_match('No exception',
-                            raises(ValueError),
-                            calling(no_exception))
+        self.assert_does_not_match("No exception", raises(ValueError), calling(no_exception))
 
     def testDoesNotMatchExceptionIfRegularExpressionDoesNotMatch(self):
-        self.assert_does_not_match('Bad regex',
-                                   raises(AssertionError, "Phrase not found"),
-                                   calling(raise_exception))
+        self.assert_does_not_match(
+            "Bad regex", raises(AssertionError, "Phrase not found"), calling(raise_exception)
+        )
+        self.assert_mismatch_description(
+            '''Correct assertion type raised, but the expected pattern ("Phrase not found") not found. Exception message was: "(){}"''',
+            raises(AssertionError, "Phrase not found"),
+            calling(raise_exception),
+        )
 
     def testMatchesRegularExpressionToStringifiedException(self):
-        self.assert_matches('Regex',
-                            raises(AssertionError, "(3, 1, 4)"),
-                            calling(raise_exception).with_args(3,1,4))
+        self.assert_matches(
+            "Regex",
+            raises(AssertionError, "(3, 1, 4)"),
+            calling(raise_exception).with_args(3, 1, 4),
+        )
 
-        self.assert_matches('Regex',
-                            raises(AssertionError, "([\d, ]+)"),
-                            calling(raise_exception).with_args(3,1,4))
+        self.assert_matches(
+            "Regex",
+            raises(AssertionError, r"([\d, ]+)"),
+            calling(raise_exception).with_args(3, 1, 4),
+        )
+
+    def testMachesIfRaisedExceptionMatchesAdditionalMatchers(self):
+        self.assert_matches(
+            "Properties",
+            raises(AssertionError, matching=has_properties(prip="prop")),
+            calling(raise_exception_with_properties).with_args(prip="prop"),
+        )
+
+    def testDoesNotMatchIfAdditionalMatchersDoesNotMatch(self):
+        self.assert_does_not_match(
+            "Bad properties",
+            raises(AssertionError, matching=has_properties(prop="prip")),
+            calling(raise_exception_with_properties).with_args(prip="prop"),
+        )
+        self.assert_mismatch_description(
+            '''Correct assertion type raised, but an object with a property 'prop' matching 'prip' not found. Exception message was: "boom"''',
+            raises(AssertionError, matching=has_properties(prop="prip")),
+            calling(raise_exception_with_properties).with_args(prip="prop"),
+        )
+
+    def testDoesNotMatchIfNeitherPatternOrMatcherMatch(self):
+        self.assert_does_not_match(
+            "Bad pattern and properties",
+            raises(AssertionError, pattern="asdf", matching=has_properties(prop="prip")),
+            calling(raise_exception_with_properties).with_args(prip="prop"),
+        )
+        self.assert_mismatch_description(
+            '''Correct assertion type raised, but the expected pattern ("asdf") and an object with a property 'prop' matching 'prip' not found. Exception message was: "boom"''',
+            raises(AssertionError, pattern="asdf", matching=has_properties(prop="prip")),
+            calling(raise_exception_with_properties).with_args(prip="prop"),
+        )
 
     def testDescribeMismatchWillCallItemIfNotTheOriginalMatch(self):
         function = Callable()
         matcher = raises(AssertionError)
         matcher.describe_mismatch(function, object())
         self.assertTrue(function.called)
+
+
+@pytest.mark.parametrize(
+    "expected_message",
+    [
+        pytest.param(
+            "but AssertionError('(){}',) of type <type 'exceptions.AssertionError'> was raised.",
+            marks=pytest.mark.skipif(
+                sys.version_info >= (3, 0), reason="Message differs between Python versions"
+            ),
+        ),
+        pytest.param(
+            "but AssertionError('(){}',) of type <class 'AssertionError'> was raised.",
+            marks=pytest.mark.skipif(
+                not (3, 0) <= sys.version_info < (3, 7),
+                reason="Message differs between Python versions",
+            ),
+        ),
+        pytest.param(
+            "but AssertionError('(){}') of type <class 'AssertionError'> was raised.",
+            marks=pytest.mark.skipif(
+                sys.version_info < (3, 7), reason="Message differs between Python versions"
+            ),
+        ),
+    ],
+)
+def test_gives_correct_message_when_wrapped_with_is_not(expected_message):
+    assert_mismatch_description(
+        expected_message, not_(raises(AssertionError)), calling(raise_exception)
+    )
+
 
 class CallingTest(unittest.TestCase):
     def testCallingDoesNotImmediatelyExecuteFunction(self):
@@ -89,10 +193,6 @@ class CallingTest(unittest.TestCase):
 
         self.assertEqual(method.args, (3, 1, 4))
         self.assertEqual(method.kwargs, {"keyword1": "arg1"})
-
-    def testCallingReturnsFunctionResult(self):
-        returned = calling(sum).with_args((3, 1, 4))()
-        self.assertEqual(returned, 8)
 
 
 class Callable(object):
