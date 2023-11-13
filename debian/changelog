@@ -1,3 +1,52 @@
+pyhamcrest (2.0.3-2) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Use secure URI in Homepage field.
+  * Set upstream metadata fields: Repository-Browse.
+
+ -- Jelmer Vernooĳ <jelmer@debian.org>  Mon, 17 Oct 2022 02:25:50 +0100
+
+pyhamcrest (2.0.3-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+  * Update dh-compat version to 13.
+  * Add Rules-Requires-Root line.
+  * Update debian copyright year to 2022.
+  * Update standards version to 4.6.1, no changes needed.
+
+ -- Ileana Dumitrescu <ileanadumitrescu95@gmail.com>  Fri, 02 Sep 2022 23:02:21 +0300
+
+pyhamcrest (2.0.2-2) unstable; urgency=medium
+
+  * Team upload.
+  * Uploading to unstable.
+
+ -- Thomas Goirand <zigo@debian.org>  Thu, 23 Dec 2021 15:23:07 +0100
+
+pyhamcrest (2.0.2-1) experimental; urgency=low
+
+  [ Debian Janitor ]
+  * Set upstream metadata fields: Bug-Database, Bug-Submit.
+  * Update standards version to 4.5.0, no changes needed.
+
+  [ Ondřej Nový ]
+  * d/control: Update Vcs-* fields with new Debian Python Team Salsa
+    layout.
+
+  [ Sandro Tosi ]
+  * Use the new Debian Python Team contact name and address
+
+  [ Thomas Goirand ]
+  * Team upload.
+  * Exchange Maintainers and Uploaders field: David Villa Alises didn't take
+    care of this package since 2014, and it has recieved 7 uploads since.
+  * Fixed broken watch file.
+  * New upstream release:
+    - Removed all patches.
+
+ -- Thomas Goirand <zigo@debian.org>  Wed, 25 Aug 2021 11:16:23 +0200
+
 pyhamcrest (1.9.0-3pexip3) pexip-bullseye; urgency=medium
 
   * Bullseye rebuild for ARM64 inclusion

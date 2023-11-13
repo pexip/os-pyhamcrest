@@ -4,3 +4,10 @@ PyHamcrest.egg-info/
 build/
 dist/
 .tox
+.coverage*
+.idea/
+*~
+.python-version
+.mypy_cache/
+requirements.txt
+requirements.in

@@ -2,10 +2,10 @@ Source: pyhamcrest
 Section: python
 Priority: optional
 Maintainer: Pexip AS <packaging@pexip.com>
-XSBC-Pexip-Original-Maintainer: David Villa Alises <David.Villa@gmail.com>
-XSBC-Pexip-Original-Uploaders: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
+XSBC-Pexip-Original-Maintainer: Debian Python Team <team+python@tracker.debian.org>
+XSBC-Pexip-Original-Uploaders: David Villa Alises <David.Villa@gmail.com>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  dh-python,
  python3-all,
  python3-hypothesis,
@@ -13,10 +13,11 @@ Build-Depends:
  python3-pytest-cov,
  python3-setuptools,
  python3-six
-Standards-Version: 4.4.1
-Homepage: http://hamcrest.org/
-Vcs-Git: https://salsa.debian.org/python-team/modules/pyhamcrest.git
-Vcs-Browser: https://salsa.debian.org/python-team/modules/pyhamcrest
+Standards-Version: 4.6.1
+Rules-Requires-Root: no
+Homepage: https://hamcrest.org/
+Vcs-Git: https://salsa.debian.org/python-team/packages/pyhamcrest.git
+Vcs-Browser: https://salsa.debian.org/python-team/packages/pyhamcrest
 Testsuite: autopkgtest-pkg-python
 XS-Pexip-Upstream: http://deb.debian.org/debian/ bookworm
 
