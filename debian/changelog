@@ -1,3 +1,19 @@
+pyhamcrest (2.1.0-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream version 2.1.0
+  * use new dh-sequence-python3
+  * enable 426 tests, disable 3
+  * add new build dependency on:
+    * pybuild-plugin-pyproject
+    * python3-hatchling
+    * python3-hatch-vcs
+  * remove old build dependencies:
+    * python3-mock: hybridized in src/hamcrest/core/helpers/ismock.py
+    * python3-six
+
+ -- Alexandre Detiste <tchet@debian.org>  Sat, 17 Feb 2024 16:42:01 +0100
+
 pyhamcrest (2.0.3-2) unstable; urgency=medium
 
   [ Debian Janitor ]

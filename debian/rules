@@ -3,9 +3,10 @@
 # http://wiki.debian.org/Python/LibraryStyleGuide
 
 export PYBUILD_NAME=hamcrest
+export PYBUILD_TEST_ARGS= -s tests/ -p '*.py'
 
 %:
-	dh $@ --with python3 --buildsystem=pybuild
+	dh $@ --buildsystem=pybuild
 
 override_dh_auto_clean:
 	dh_auto_clean
