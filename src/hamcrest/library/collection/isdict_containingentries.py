@@ -28,7 +28,6 @@ class IsDictContainingEntries(BaseMatcher[Mapping[K, V]]):
         self, item: Mapping[K, V], mismatch_description: Optional[Description] = None
     ) -> bool:
         for key, value_matcher in self.value_matchers:
-
             try:
                 if key not in item:
                     if mismatch_description:
@@ -57,7 +56,7 @@ class IsDictContainingEntries(BaseMatcher[Mapping[K, V]]):
     def describe_mismatch(self, item: Mapping[K, V], mismatch_description: Description) -> None:
         self.matches(item, mismatch_description)
 
-    def describe_keyvalue(self, index: int, value: V, description: Description) -> None:
+    def describe_keyvalue(self, index: K, value: V, description: Description) -> None:
         """Describes key-value pair at given index."""
         description.append_description_of(index).append_text(": ").append_description_of(value)
 
