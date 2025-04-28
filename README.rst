@@ -46,6 +46,12 @@ Hamcrest can be installed using the usual Python packaging tools. It depends on
 distribute, but as long as you have a network connection when you install, the
 installation process will take care of that for you.
 
+For example:
+
+.. code::
+
+ pip install PyHamcrest
+
 My first PyHamcrest test
 ========================
 
@@ -55,7 +61,7 @@ the standard set of matchers:
 
 .. code:: python
 
- from hamcrest import *
+ from hamcrest import assert_that, equal_to
  import unittest
 
 
@@ -266,7 +272,7 @@ could use it in our test by importing the factory function ``on_a_saturday``:
 
 .. code:: python
 
- from hamcrest import *
+ from hamcrest import assert_that, is_
  import unittest
  from isgivendayofweek import on_a_saturday
 

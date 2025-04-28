@@ -6,13 +6,14 @@ XSBC-Pexip-Original-Maintainer: Debian Python Team <team+python@tracker.debian.o
 XSBC-Pexip-Original-Uploaders: David Villa Alises <David.Villa@gmail.com>
 Build-Depends:
  debhelper-compat (= 13),
- dh-python,
+ dh-sequence-python3,
+ pybuild-plugin-pyproject,
  python3-all,
+ python3-hatchling,
+ python3-hatch-vcs,
  python3-hypothesis,
- python3-mock,
  python3-pytest-cov,
  python3-setuptools,
- python3-six
 Standards-Version: 4.6.1
 Rules-Requires-Root: no
 Homepage: https://hamcrest.org/
